@@ -1,3 +1,4 @@
+import { IUserData } from "../models";
 import { LoginInput, RegisterInput } from "../validation/auth";
 
 export interface AuthResponse {
@@ -58,6 +59,16 @@ class AuthService {
       method: "POST",
       body: JSON.stringify(data),
     });
+  }
+
+  async checkAuth(): Promise<Partial<IUserData>> {
+    const response = await fetch('/api/auth/me', {})
+
+    if (!response.ok) {
+      throw new Error('Not authenticated')
+    }
+
+    return response.json()
   }
 }
 

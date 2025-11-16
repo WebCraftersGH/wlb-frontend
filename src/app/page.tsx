@@ -42,7 +42,7 @@ export default function Home() {
   
   return (
     <div className="h-screen flex flex-col justify-center items-center space-y-2">
-      <h1 className="self-center justify-center">wlb-wheel</h1>
+      <h1 className="self-center justify-center">MindBridge</h1>
       {isAuthenticated ? (
         <div className="h-[500px] w-[500px] max-w-full">
           <Radar data={radarData} />

@@ -1,4 +1,5 @@
 export interface IUserData {
-  login: string;
-  password: string;
+  id: string;
+  email: string;
+  password?: string;
 }
