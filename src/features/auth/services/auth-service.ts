@@ -64,6 +64,7 @@ class AuthService {
   async checkAuth(): Promise<Partial<IUserData>> {
     return this.request<Partial<IUserData>>("/api/v1/getme", {
       method: "GET",
+      credentials: "include",
     });
   }
 }
