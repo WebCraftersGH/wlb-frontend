@@ -40,13 +40,13 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: response.user,
             token: response.token,
-            isAuthenticated: true,
+            // isAuthenticated: true,
             isLoading: false,
           });
 
-          if (typeof window !== "undefined") {
-            window.location.href = "/dashboard";
-          }
+          // if (typeof window !== "undefined") {
+          //   window.location.href = "/";
+          // }
         } catch (error) {
           set({
             error:
@@ -54,8 +54,6 @@ export const useAuthStore = create<AuthState>()(
             isLoading: false,
           });
         }
-
-        set({ isAuthenticated: true });
       },
 
       login: async (data: LoginInput) => {
@@ -71,9 +69,9 @@ export const useAuthStore = create<AuthState>()(
             isLoading: false,
           });
 
-          if (typeof window !== "undefined") {
-            window.location.href = "/";
-          }
+          // if (typeof window !== "undefined") {
+          //   window.location.href = "/";
+          // }
         } catch (error) {
           set({
             error: error instanceof Error ? error.message : "Ошибка входа",
@@ -89,10 +87,10 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: false,
         });
 
-        if (typeof window !== "undefined") {
+        // if (typeof window !== "undefined") {
           localStorage.removeItem("token");
-          window.location.href = "/";
-        }
+          // window.location.href = "/";
+        // }
       },
 
       clearError: () => set({ error: null }),
