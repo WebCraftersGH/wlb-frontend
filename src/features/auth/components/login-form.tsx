@@ -36,6 +36,7 @@ export default function LoginForm() {
               type="text"
               id="emailInput"
               autoFocus
+              autoComplete="false"
               {...loginField("email", { required: true })}
               className=" bg-[#3c3c3c] rounded-lg border border-[#515151] p-1"
             />

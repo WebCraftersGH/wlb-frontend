@@ -62,7 +62,9 @@ class AuthService {
   }
 
   async checkAuth(): Promise<Partial<IUserData>> {
-    const response = await fetch('/api/auth/me', {})
+    const response = await fetch('/api/v1/getme', {
+      method: "GET"
+    })
 
     if (!response.ok) {
       throw new Error('Not authenticated')

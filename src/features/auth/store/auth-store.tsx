@@ -3,7 +3,6 @@ import { devtools, persist } from "zustand/middleware";
 import { authService } from "../services/auth-service";
 import { RegisterInput, LoginInput } from "../validation/auth";
 import { IUserData } from "../models";
-import { useRouter } from "next/navigation";
 
 interface AuthState {
   user: Partial<IUserData> | null;
@@ -20,8 +19,6 @@ interface AuthState {
   checkAuth: () => Promise<void>;
   initialize: () => Promise<void>;
 }
-
-const router = useRouter();
 
 export const useAuthStore = create<AuthState>()(
   devtools(
@@ -47,8 +44,9 @@ export const useAuthStore = create<AuthState>()(
               isLoading: false,
             });
 
-            router.replace('/');
-
+            if (typeof window !== "undefined") {
+              window.location.href = "/";
+            }
           } catch (error) {
             set({
               error:
@@ -71,8 +69,9 @@ export const useAuthStore = create<AuthState>()(
               isLoading: false,
             });
 
-            router.replace('/');
-
+            if (typeof window !== "undefined") {
+              window.location.href = "/";
+            }
           } catch (error) {
             set({
               error: error instanceof Error ? error.message : "Ошибка входа",
@@ -88,9 +87,10 @@ export const useAuthStore = create<AuthState>()(
             isAuthenticated: false,
           });
 
-          localStorage.removeItem("token");
-          router.replace('/');
-          
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+          }
         },
 
         clearError: () => set({ error: null }),

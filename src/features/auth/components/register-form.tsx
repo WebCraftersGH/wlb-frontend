@@ -29,7 +29,7 @@ export default function RegisterForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="w-[400px] max-w-full border border-[#515151] rounded-3xl p-4 space-y-4 flex flex-col items-center bg-[#101010]"
         >
-          <h2>Войти</h2>
+          <h2>Регистрация</h2>
           <div className="w-full flex flex-col space-y-1">
             <label htmlFor="emailInput" className="text-xs text-[#8e8e8e]">
               Email
