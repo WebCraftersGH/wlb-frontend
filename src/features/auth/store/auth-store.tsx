@@ -108,6 +108,8 @@ export const useAuthStore = create<AuthState>()(
           try {
             const userData = await authService.checkAuth();
 
+            console.log(userData)
+
             set({
               user: userData,
               isAuthenticated: true,
