@@ -1,3 +1,6 @@
+'use client'
+
+import { useAuthStore } from "../features/auth/store/auth-store";
 import { Radar } from "../features/vizualization/components/radar";
 import Button from "../shared/components/button";
 
@@ -35,12 +38,12 @@ export default function Home() {
     },
   ];
 
-  const isAuthorized = false;
-
+  const { isAuthenticated } = useAuthStore();
+  
   return (
     <div className="h-screen flex flex-col justify-center items-center space-y-2">
       <h1 className="self-center justify-center">wlb-wheel</h1>
-      {isAuthorized ? (
+      {isAuthenticated ? (
         <div className="h-[500px] w-[500px] max-w-full">
           <Radar data={radarData} />
         </div>
@@ -55,7 +58,9 @@ export default function Home() {
             </span>
             <div className="flex space-x-1">
               <Button href="/registration">Регистрация</Button>
-              <Button href="/login" variant="secondary">Войти</Button>
+              <Button href="/login" variant="secondary">
+                Войти
+              </Button>
             </div>
           </div>
         </div>

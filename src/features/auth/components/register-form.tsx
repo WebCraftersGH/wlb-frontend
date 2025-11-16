@@ -3,21 +3,23 @@
 import Button from "@/src/shared/components/button";
 import { useForm } from "react-hook-form";
 import { useAuthStore } from "../store/auth-store";
-import { LoginInput, loginSchema } from "../validation/auth";
+import { RegisterInput, registerSchema } from "../validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export default function LoginForm() {
-  const { login, isAuthenticated, isLoading, error, clearError } =
+export default function RegisterForm() {
+  const { register, isAuthenticated, isLoading, error, clearError } =
     useAuthStore();
 
   const {
-    register: loginField,
+    register: registerField,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInput>({ resolver: zodResolver(loginSchema) });
+  } = useForm<RegisterInput>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit = async (data: LoginInput) => {
-    await login(data);
+  //TODO: Заменить отправку всей даты с регистрации на отправку {email: email, password: password}
+
+  const onSubmit = async (data: RegisterInput) => {
+    await register(data);
   };
 
   return (
@@ -36,7 +38,7 @@ export default function LoginForm() {
               type="text"
               id="emailInput"
               autoFocus
-              {...loginField("email", { required: true })}
+              {...registerField("email", { required: true })}
               className=" bg-[#3c3c3c] rounded-lg border border-[#515151] p-1"
             />
             {errors.email && (
@@ -52,14 +54,27 @@ export default function LoginForm() {
             <input
               type="password"
               id="passwordInput"
-              {...loginField("password", { required: true })}
+              {...registerField("password", { required: true })}
               className="bg-[#3c3c3c] rounded-lg border border-[#515151] p-1"
             />
             {errors.password && (
               <p className=" text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <div className="w-full flex flex-col space-y-1">
+            <label htmlFor="confirmPasswordInput" className="text-xs text-[#8e8e8e]">
+              Пароль
+            </label>
+            <input
+              type="password"
+              id="confirmPasswordInput"
+              {...registerField("confirmPassword", { required: true })}
+              className="bg-[#3c3c3c] rounded-lg border border-[#515151] p-1"
+            />
+            {errors.password && (
+              <p className=" text-red-500 text-sm">{errors.password.message}</p>
+            )}
+          </div>
           <Button type="submit">Отправить</Button>
         </form>
       ) : (

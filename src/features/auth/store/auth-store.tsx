@@ -1,32 +1,104 @@
-import { createStore } from "zustand";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { authService } from "../services/auth-service";
+import { RegisterInput, LoginInput } from "../validation/auth";
 
-type AuthState = {
-  email: string | undefined;
-};
+interface User {
+  id: string;
+  email: string;
+  name?: string;
+}
 
-type AuthAction = {
-  setEmail: (email: string) => void;
-  sendEmailStepData: (state: AuthState) => void;
-};
+interface AuthState {
+  user: User | null;
+  token: string | null;
+  isLoading: boolean;
+  error: string | null;
+  isAuthenticated: boolean;
 
-export type AuthStore = AuthState & AuthAction;
+  register: (data: RegisterInput) => Promise<void>;
+  login: (data: LoginInput) => Promise<void>;
+  logout: () => void;
+  clearError: () => void;
+}
 
-const defaultInitState: AuthState = {
-  email: undefined,
-};
+export const useAuthStore = create<AuthState>()(
+  devtools(
+    (set, get) => ({
+      user: null,
+      token: null,
+      isLoading: false,
+      error: null,
+      isAuthenticated: false,
 
-export const initAuthStore = (): AuthState => {
-  return { ...defaultInitState };
-};
+      register: async (data: RegisterInput) => {
+        set({ isLoading: true, error: null });
 
-export const createAuthStore = (initState: AuthState = defaultInitState) => {
-  return createStore<AuthStore>()((set) => ({
-    ...initState,
+        try {
+          const response = await authService.register(data);
 
-    setEmail: (email: string) => set(() => ({ email: email })),
+          set({
+            user: response.user,
+            token: response.token,
+            isAuthenticated: true,
+            isLoading: false,
+          });
 
-    sendEmailStepData: (state) => {
-      console.log(state);
-    },
-  }));
-};
+          if (typeof window !== "undefined") {
+            window.location.href = "/dashboard";
+          }
+        } catch (error) {
+          set({
+            error:
+              error instanceof Error ? error.message : "Ошибка регистрации",
+            isLoading: false,
+          });
+        }
+
+        set({ isAuthenticated: true });
+      },
+
+      login: async (data: LoginInput) => {
+        set({ isLoading: true, error: null });
+
+        try {
+          const response = await authService.login(data);
+
+          set({
+            user: response.user,
+            token: response.token,
+            isAuthenticated: true,
+            isLoading: false,
+          });
+
+          if (typeof window !== "undefined") {
+            window.location.href = "/";
+          }
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "Ошибка входа",
+            isLoading: false,
+          });
+        }
+      },
+
+      logout: () => {
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        });
+
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("token");
+          window.location.href = "/";
+        }
+      },
+
+      clearError: () => set({ error: null }),
+    }),
+    {
+      name: "auth-store",
+    }
+  )
+);

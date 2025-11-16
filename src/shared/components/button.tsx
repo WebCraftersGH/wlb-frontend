@@ -16,7 +16,7 @@ export default function Button({
   ...props
 }: IButtonProps) {
   const baseClasses =
-    "py-2 px-3 rounded-lg cursor-pointer font-family-bounded transition-colors duration-200 ease-in-out";
+    "py-2 px-3 rounded-lg cursor-pointer font-family-hikasami transition-colors duration-200 ease-in-out";
   const varianClasses: Record<IButtonVariant, string> = {
     primary: "bg-white text-black hover:bg-[#C0C0C0] active:bg-[#CCCCCC]",
     secondary:
