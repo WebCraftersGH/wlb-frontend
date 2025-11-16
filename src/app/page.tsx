@@ -1,54 +1,65 @@
-import { PolarBar } from "../features/vizualization/components/polar-bar";
 import { Radar } from "../features/vizualization/components/radar";
+import Button from "../shared/components/button";
 
 export default function Home() {
-  const radarData: Record<string, unknown>[] = [
+  const radarData = [
     {
-      wheelKey: "свойство 1",
+      id: "0",
+      wheelKey: "Карьера",
       value: 10,
     },
     {
-      wheelKey: "свойство 2",
+      id: "1",
+      wheelKey: "Здоровье",
       value: 5,
     },
     {
-      wheelKey: "свойство 1",
-      value: 10,
+      id: "2",
+      wheelKey: "Отношения",
+      value: 1,
     },
     {
-      wheelKey: "свойство 1",
+      id: "3",
+      wheelKey: "Финансы",
+      value: 7,
+    },
+    {
+      id: "4",
+      wheelKey: "Развитие",
+      value: 8,
+    },
+    {
+      id: "5",
+      wheelKey: "Отдых",
       value: 10,
     },
   ];
 
-  const polarBarData: Record<string, unknown>[] = [
-    {
-      wheelKey: "prop 1",
-      value: 173,
-    },
-    {
-      wheelKey: "prop 2",
-      value: 72,
-    },
-    {
-      wheelKey: "prop 3",
-      value: 109,
-    },
-    {
-      wheelKey: "prop 4",
-      value: 141,
-    }
-  ];
+  const isAuthorized = false;
 
   return (
-    <div className="h-[100vh] flex flex-col justify-center items-center space-y-2">
-      <h1 className="self-center justify-center">just example text</h1>
-      <div className="h-[500px] w-[500px] rounded-2xl bg-[#191919]">
-        <Radar data={radarData} />
-      </div>
-      <div className="h-[500px] w-[500px] rounded-2xl bg-[#191919]">
-        <PolarBar data={polarBarData} />
-      </div>
+    <div className="h-screen flex flex-col justify-center items-center space-y-2">
+      <h1 className="self-center justify-center">wlb-wheel</h1>
+      {isAuthorized ? (
+        <div className="h-[500px] w-[500px] max-w-full">
+          <Radar data={radarData} />
+        </div>
+      ) : (
+        <div className="h-[500px] w-[500px] max-w-full relative">
+          <div className="w-full h-full blur-xs">
+            <Radar data={[]} />
+          </div>
+          <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center space-y-2">
+            <span className="text-center">
+              Авторизуйтесь для работы с&nbsp;wlb-колесом
+            </span>
+            <div className="flex space-x-1">
+              <Button href="/registration">Регистрация</Button>
+              <Button href="/login" variant="secondary">Войти</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
