@@ -41,6 +41,7 @@ class AuthService {
         email: data.email,
         password: data.password,
       }),
+      credentials: "include",
     });
   }
 
@@ -48,6 +49,7 @@ class AuthService {
     return this.request<AuthResponse>("/api/v1/login", {
       method: "POST",
       body: JSON.stringify(data),
+      credentials: "include",
     });
   }
 
