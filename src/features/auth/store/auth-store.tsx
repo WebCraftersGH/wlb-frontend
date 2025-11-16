@@ -100,7 +100,7 @@ export const useAuthStore = create<AuthState>()(
 
           if (!token) {
             set({ isAuthenticated: false, isInitialized: true });
-            return;
+            // return;
           }
 
           set({ isLoading: true });
@@ -128,7 +128,7 @@ export const useAuthStore = create<AuthState>()(
           const { checkAuth, isInitialized } = get();
 
           if (!isInitialized) {
-            await checkAuth();
+            const response = await checkAuth();
           }
         },
       }),
