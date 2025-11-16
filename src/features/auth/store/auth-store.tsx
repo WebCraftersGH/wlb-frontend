@@ -111,7 +111,7 @@ export const useAuthStore = create<AuthState>()(
             console.log(userData)
 
             set({
-              user: userData,
+              // user: userData,
               isAuthenticated: true,
               isLoading: false,
             });
