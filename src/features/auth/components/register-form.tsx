@@ -63,7 +63,7 @@ export default function RegisterForm() {
           </div>
           <div className="w-full flex flex-col space-y-1">
             <label htmlFor="confirmPasswordInput" className="text-xs text-[#8e8e8e]">
-              Пароль
+              Подтверждение пароля
             </label>
             <input
               type="password"
