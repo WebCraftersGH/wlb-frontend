@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useAuthStore } from "../features/auth/store/auth-store";
 import { Radar } from "../features/vizualization/components/radar";
@@ -9,45 +9,51 @@ export default function Home() {
     {
       id: "0",
       wheelKey: "Карьера",
-      value: 10,
+      startValue: 10,
+      runValue: 11,
     },
     {
       id: "1",
       wheelKey: "Здоровье",
-      value: 5,
+      startValue: 5,
+      runValue: 11,
     },
     {
       id: "2",
       wheelKey: "Отношения",
-      value: 1,
+      startValue: 1,
+      runValue: 11,
     },
     {
       id: "3",
       wheelKey: "Финансы",
-      value: 7,
+      startValue: 7,
+      runValue: 11,
     },
     {
       id: "4",
       wheelKey: "Развитие",
-      value: 8,
+      startValue: 8,
+      runValue: 11,
     },
     {
       id: "5",
       wheelKey: "Отдых",
-      value: 10,
+      startValue: 10,
+      runValue: 11,
     },
   ];
 
-  const { isAuthenticated } = useAuthStore();
-  
+  // const { isAuthenticated } = useAuthStore();
+
   return (
     <div className="h-screen flex flex-col justify-center items-center space-y-2">
       <h1 className="self-center justify-center">MindBridge</h1>
-      {isAuthenticated ? (
-        <div className="h-[500px] w-[500px] max-w-full">
-          <Radar data={radarData} />
-        </div>
-      ) : (
+      {/* {isAuthenticated ? ( */}
+      <div className="h-[500px] w-[500px] max-w-full">
+        <Radar data={radarData} type="startRun" />
+      </div>
+      {/* ) : (
         <div className="h-[500px] w-[500px] max-w-full relative">
           <div className="w-full h-full blur-xs">
             <Radar data={[]} />
@@ -64,7 +70,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
