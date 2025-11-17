@@ -12,7 +12,9 @@ export default function Home() {
   const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    getWheels("start");
+    if (isAuthenticated) {
+      getWheels("start");
+    }
   });
 
   return (

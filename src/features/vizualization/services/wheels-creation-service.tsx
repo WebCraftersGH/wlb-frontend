@@ -38,8 +38,8 @@ export class WheelsCreationService {
     });
   }
 
-  async updateWheels(data: IUpdate, path: IPath) {
-    return this.request<ApiResponse>(`/api/v1/wheels/${path}`, {
+  async updateWheels(data: IUpdate, path: IPath): Promise<IWheel> {
+    return this.request<IWheel>(`/api/v1/wheels/${path}`, {
       method: "PATCH",
       body: JSON.stringify(data)
     });

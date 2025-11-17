@@ -43,6 +43,7 @@ export const useWheelStore = create<IWheelsState>()(
               mapFormDataToUpdateType(data, path),
               path
             );
+            set({ wheel: response });
           } catch (error) {
             console.error(error);
           }
