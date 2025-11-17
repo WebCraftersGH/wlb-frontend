@@ -1,6 +1,6 @@
 import { IPeak } from "./peak";
 
-export interface IUpdate {
+export interface IWheel {
   editable: boolean;
   expires_at: string | null;
   peaks: IPeak[];

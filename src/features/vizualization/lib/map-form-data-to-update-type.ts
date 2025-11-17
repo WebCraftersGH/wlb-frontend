@@ -1,9 +1,10 @@
+import { IPath } from "../models/path";
 import { IPeak } from "../models/peak";
 import { IUpdate } from "../models/update";
 
 export function mapFormDataToUpdateType(
   data: string[][],
-  path: "start" | "run" | "future"
+  path: IPath
 ): IUpdate {
   const peaks: IPeak[] = [];
 

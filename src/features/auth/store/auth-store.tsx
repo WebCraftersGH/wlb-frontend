@@ -4,7 +4,7 @@ import { authService } from "../services/auth-service";
 import { RegisterInput, LoginInput } from "../validation/auth";
 import { IUserData } from "../models";
 
-interface AuthState {
+interface IAuthState {
   user: Partial<IUserData> | null;
   token: string | null;
   isLoading: boolean;
@@ -20,7 +20,7 @@ interface AuthState {
   initialize: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>()(
+export const useAuthStore = create<IAuthState>()(
   devtools(
     persist(
       (set, get) => ({

@@ -1,4 +1,7 @@
 import { IGet } from "../models/get";
+import { IPath } from "../models/path";
+import { IUpdate } from "../models/update";
+import { IWheel } from "../models/wheel";
 
 interface ApiResponse {}
 
@@ -30,19 +33,19 @@ export class WheelsCreationService {
   }
 
   async initWheels() {
-    return this.request<ApiResponse>("/api/v1/wheels/init", {
+    return this.request<IWheel>("/api/v1/wheels/init", {
       method: "POST",
     });
   }
 
-  async updateWheels(data: any, path: "start" | "run" | "future") {
+  async updateWheels(data: IUpdate, path: IPath) {
     return this.request<ApiResponse>(`/api/v1/wheels/${path}`, {
       method: "PATCH",
       body: JSON.stringify(data)
     });
   }
 
-  async getWheels(path: "start" | "run" | "future"): Promise<IGet> {
+  async getWheels(path: IPath): Promise<IGet> {
     return this.request<IGet>(`/api/v1/wheels/${path}`, {
       method: "GET",
     });
