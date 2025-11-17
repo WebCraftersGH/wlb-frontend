@@ -1,3 +1,5 @@
+import { IGet } from "../models/get";
+
 interface ApiResponse {}
 
 interface ApiError {
@@ -33,10 +35,16 @@ export class WheelsCreationService {
     });
   }
 
-  async updateWheels(data: any, path: string) {
-    return this.request<ApiResponse>(`/api/v1/wheel/${path}`, {
+  async updateWheels(data: any, path: "start" | "run" | "future") {
+    return this.request<ApiResponse>(`/api/v1/wheels/${path}`, {
       method: "PATCH",
       body: JSON.stringify(data)
+    });
+  }
+
+  async getWheels(path: "start" | "run" | "future"): Promise<IGet> {
+    return this.request<IGet>(`/api/v1/wheels/${path}`, {
+      method: "GET",
     });
   }
 };
