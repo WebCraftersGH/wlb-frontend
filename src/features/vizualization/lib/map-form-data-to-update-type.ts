@@ -35,7 +35,7 @@ export function mapFormDataToUpdateType(
 
   return {
     editable: path === "start" ? false : true,
-    expires_at: path === "future" ? "2025-12-31T23:59:59Z" : "",
+    expires_at: path === "future" ? "2025-12-31T23:59:59Z" : null,
     peaks: [...peaks],
   };
 }
