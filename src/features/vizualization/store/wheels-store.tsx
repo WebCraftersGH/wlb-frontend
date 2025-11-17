@@ -14,7 +14,7 @@ interface IWheelsState {
   form: string[][] | null;
 
   initWheels: () => Promise<void>;
-  updateWheels: (data: string[][], path: IPath) => Promise<void>;
+  updateWheels: (data: IUpdate, path: IPath) => Promise<void>;
   getWheels: (path: IPath) => Promise<void>;
 }
 
@@ -37,10 +37,10 @@ export const useWheelStore = create<IWheelsState>()(
           }
         },
 
-        updateWheels: async (data: string[][], path: IPath) => {
+        updateWheels: async (data: IUpdate, path: IPath) => {
           try {
             const response = await wheelsCreationService.updateWheels(
-              mapFormDataToUpdateType(data, path),
+              data,
               path
             );
             set({ wheel: response });

@@ -4,6 +4,7 @@ import Button from "@/src/shared/components/button";
 import { useState } from "react";
 import { wheelsCreationService } from "../services/wheels-creation-service";
 import { mapFormDataToUpdateType } from "../lib/map-form-data-to-update-type";
+import { useWheelStore } from "../store/wheels-store";
 
 export default function WheelsCreationForm() {
   const [rows, setRows] = useState([["", "", ""]]);
@@ -19,32 +20,7 @@ export default function WheelsCreationForm() {
     }
   }
 
-  async function updateWheels() {
-    try {
-      const response = await wheelsCreationService.updateWheels(
-        mapFormDataToUpdateType(rows, "start"),
-        "start"
-      );
-    } catch (error) {
-      console.error(error);
-    }
-    try {
-      const response = await wheelsCreationService.updateWheels(
-        mapFormDataToUpdateType(rows, "run"),
-        "run"
-      );
-    } catch (error) {
-      console.error(error);
-    }
-    try {
-      const response = await wheelsCreationService.updateWheels(
-        mapFormDataToUpdateType(rows, "future"),
-        "future"
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const { updateWheels } = useWheelStore();
 
   function addRows() {
     setRows((prevRows) => [...prevRows, ["", "", ""]]);
@@ -65,6 +41,10 @@ export default function WheelsCreationForm() {
 
   function handleVarianSelect() {
     setIsVariantSelected(true);
+  }
+
+  function handleCreateClick() {
+    updateWheels(mapFormDataToUpdateType(rows, "start"), "start");
   }
 
   return (
@@ -122,7 +102,7 @@ export default function WheelsCreationForm() {
               </tr>
             </tbody>
           </table>
-          <Button onClick={updateWheels}>Создать</Button>
+          <Button onClick={handleCreateClick}>Создать</Button>
         </div>
       )}
       {!isWheelsInitialized && (
