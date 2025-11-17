@@ -16,7 +16,7 @@ export default function Home() {
     if (isAuthenticated) {
       getWheels("start");
     }
-  });
+  }, []);
 
   const temporaryWheel: IPeak[] = [
     { wheel_key: "Работа", value: 4, run_value: 7 },
