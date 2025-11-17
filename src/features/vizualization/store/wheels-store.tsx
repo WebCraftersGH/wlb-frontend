@@ -7,6 +7,7 @@ import { wheelsCreationService } from "../services/wheels-creation-service";
 
 interface IWheelsState {
   wheel: IWheel | null;
+  isWheelCreated: boolean;
   isWheelsInitialized: boolean;
   isLoading: boolean;
   error: string | null;
@@ -23,6 +24,7 @@ export const useWheelStore = create<IWheelsState>()(
     persist(
       (set, get) => ({
         wheel: null,
+        isWheelCreated: false,
         isWheelsInitialized: false,
         isLoading: false,
         error: null,
@@ -47,7 +49,7 @@ export const useWheelStore = create<IWheelsState>()(
               data,
               path
             );
-            set({ wheel: response });
+            set({ wheel: response, isWheelCreated: true });
           } catch (error) {
             console.error(error);
           }
@@ -56,7 +58,9 @@ export const useWheelStore = create<IWheelsState>()(
         getWheels: async (path: IPath) => {
           try {
             const response = await wheelsCreationService.getWheels(path);
-            if (response.peaks) { set({ wheel: response }); }
+            if (response.peaks) { 
+              set({ wheel: response, isWheelCreated: true}); 
+            }
           } catch (error) {
             console.log(error);
           }

@@ -9,10 +9,9 @@ export default function WheelsCreationForm() {
   const [rows, setRows] = useState([["", "", ""]]);
   const [isVariantSelected, setIsVariantSelected] = useState(false);
 
-  const {isWheelsInitialized, setIsWheelsInitialized, updateWheels, initWheels} = useWheelStore();
+  const {isWheelsInitialized, updateWheels, initWheels} = useWheelStore();
 
   async function initButtonClick() {
-    setIsWheelsInitialized(true);
     initWheels();
   }
 

@@ -1,6 +1,6 @@
-import { IUpdate } from "./update";
+import { IWheel } from "./wheel";
 
-export interface IGet extends IUpdate {
+export interface IGet extends IWheel {
   createdAt: string,
   status: "start" | "run" | "future"
 }

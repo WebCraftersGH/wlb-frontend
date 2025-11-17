@@ -50,8 +50,8 @@ export function Radar(props: IRadarProps) {
     return (
       <ResponsiveRadar
         data={data}
-        keys={["startValue", "runValue"]}
-        indexBy="wheelKey"
+        keys={["value", "run_value"]}
+        indexBy="wheel_key"
         margin={{ top: 70, right: 80, bottom: 60, left: 80 }}
         gridLabelOffset={24}
         dotSize={10}
