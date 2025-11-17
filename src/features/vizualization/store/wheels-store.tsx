@@ -21,7 +21,7 @@ interface IWheelsState {
 
 export const useWheelStore = create<IWheelsState>()(
   devtools(
-    persist(
+    // persist(
       (set, get) => ({
         wheel: null,
         isWheelCreated: false,
@@ -70,5 +70,5 @@ export const useWheelStore = create<IWheelsState>()(
         name: "wheels-store",
       }
     )
-  )
+  // )
 );
