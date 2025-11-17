@@ -4,7 +4,6 @@ import { IUpdate } from "../models/update";
 import { IWheel } from "../models/wheel";
 import { devtools, persist } from "zustand/middleware";
 import { wheelsCreationService } from "../services/wheels-creation-service";
-import { mapFormDataToUpdateType } from "../lib/map-form-data-to-update-type";
 
 interface IWheelsState {
   wheel: IWheel | null;
@@ -57,8 +56,7 @@ export const useWheelStore = create<IWheelsState>()(
         getWheels: async (path: IPath) => {
           try {
             const response = await wheelsCreationService.getWheels(path);
-            if (response.message) { return; }
-            set({ wheel: response });
+            if (response.peaks) { set({ wheel: response }); }
           } catch (error) {
             console.log(error);
           }
