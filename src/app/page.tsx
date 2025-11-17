@@ -25,7 +25,7 @@ export default function Home() {
           <div className="h-[500px] w-[500px] max-w-full">
             <Radar data={wheel ? wheel.peaks : []} type="startRun" />
           </div>
-          {!wheel && <WheelsCreationForm />}
+          {wheel ? <Button disabled={true}>Изменить</Button> : <WheelsCreationForm />}
         </>
       ) : (
         <div className="h-[500px] w-[500px] max-w-full relative">

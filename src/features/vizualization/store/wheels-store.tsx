@@ -13,6 +13,7 @@ interface IWheelsState {
   error: string | null;
   form: string[][] | null;
 
+  setIsWheelsInitialized: (value: boolean) => void;
   initWheels: () => Promise<void>;
   updateWheels: (data: IUpdate, path: IPath) => Promise<void>;
   getWheels: (path: IPath) => Promise<void>;
@@ -27,6 +28,10 @@ export const useWheelStore = create<IWheelsState>()(
         isLoading: false,
         error: null,
         form: null,
+
+        setIsWheelsInitialized: (value: boolean) => {
+          set({isWheelsInitialized: value});
+        },
 
         initWheels: async () => {
           try {
@@ -52,6 +57,7 @@ export const useWheelStore = create<IWheelsState>()(
         getWheels: async (path: IPath) => {
           try {
             const response = await wheelsCreationService.getWheels(path);
+            if (response.message) { return; }
             set({ wheel: response });
           } catch (error) {
             console.log(error);

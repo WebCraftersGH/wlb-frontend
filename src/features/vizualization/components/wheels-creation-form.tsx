@@ -2,25 +2,19 @@
 
 import Button from "@/src/shared/components/button";
 import { useState } from "react";
-import { wheelsCreationService } from "../services/wheels-creation-service";
 import { mapFormDataToUpdateType } from "../lib/map-form-data-to-update-type";
 import { useWheelStore } from "../store/wheels-store";
 
 export default function WheelsCreationForm() {
   const [rows, setRows] = useState([["", "", ""]]);
-  const [isWheelsInitialized, setIsWheelsInitialized] = useState(false);
   const [isVariantSelected, setIsVariantSelected] = useState(false);
 
-  async function initButtonClick() {
-    try {
-      const response = await wheelsCreationService.initWheels();
-      setIsWheelsInitialized(true);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const {isWheelsInitialized, setIsWheelsInitialized, updateWheels, initWheels} = useWheelStore();
 
-  const { updateWheels } = useWheelStore();
+  async function initButtonClick() {
+    setIsWheelsInitialized(true);
+    initWheels();
+  }
 
   function addRows() {
     setRows((prevRows) => [...prevRows, ["", "", ""]]);
